@@ -1,3 +1,9 @@
+# ═══════════════════════════════════════════════════════════════
+# 【小白导读】用户表（系统登录账号）。
+#   · role 区分 admin / hr：admin 看全量数据，hr 只看分给自己的候选人（见 dependencies/scope.py）。
+#   · 密码存的是 bcrypt 哈希（dependencies/auth.py 负责加密和校验），绝不存明文。
+# ═══════════════════════════════════════════════════════════════
+"""用户与角色模型 — JWT 认证 + RBAC 权限管理"""
 from datetime import datetime, UTC  # 日期时间工具，以及 UTC 时区
 import enum  # 定义固定选项，例如管理员、HR 等角色
 
@@ -17,7 +23,7 @@ class UserRole(str, enum.Enum):
 
 
 class User(Base):
-    """用户模型，对应数据库中的 users 表。"""
+    """用户ORM模型，对应数据库中的 users 表。"""
 
     # 指定数据库表名。
     __tablename__ = "users"

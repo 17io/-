@@ -3,3 +3,6 @@ from app.models.user import User, UserRole
 
 # 导入候选人模型和状态枚举，供其他模块通过 app.models 使用。
 from app.models.candidate import Candidate, CandidateStatus
+
+# 导入简历模型，供其他模块通过 app.models 使用。
+from app.models.resume import Resume
