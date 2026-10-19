@@ -20,3 +20,5 @@ from app.models.notification_template import NotificationTemplate
 from app.models.policy import PolicyDocument, PolicyChatHistory
 # 大模型调用日志模型。
 from app.models.llm_log import LLMCallLog
+# 外部考试结果与分析记录模型。
+from app.models.exam_analysis import ExamAnalysis

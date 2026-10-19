@@ -36,105 +36,61 @@ class InterviewRound(str, enum.Enum):
 class Interview(Base):
     """面试ORM模型，对应数据库中的 interviews 表。"""
 
-    # 指定数据库表名。
     __tablename__ = "interviews"
 
     # 面试 ID：唯一标识一场面试。
-    id = Column(
-        Integer,  # 整数类型
-        primary_key=True,  # 设为主键
-        autoincrement=True,  # 新增时由数据库自动生成 ID
-    )
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
     # 所属候选人：一位候选人可以参加多场面试。
-    candidate_id = Column(
-        Integer,
-        ForeignKey("candidates.id"),  # 外键，关联候选人表
-        nullable=False,  # 必须指定所属候选人
-        index=True,  # 便于查询某位候选人的全部面试
-    )
+    candidate_id = Column(Integer, ForeignKey('candidates.id'), nullable=False, index=True)
 
     # 面试轮次：默认是初面。
-    round = Column(
-        String(20),                          # 保存轮次字符串
-        default=InterviewRound.FIRST.value,  # 未提供时默认使用 "first"
-    )
+    # 保存轮次字符串
+    # 未提供时默认使用 "first"
+    round = Column(String(20), default=InterviewRound.FIRST.value)
 
     # 当前状态：默认等待安排。
-    status = Column(
-        String(20),                           # 保存状态字符串
-        default=InterviewStatus.PENDING.value,  # 未提供时默认使用 "pending"
-    )
+    # 保存状态字符串
+    # 未提供时默认使用 "pending"
+    status = Column(String(20), default=InterviewStatus.PENDING.value)
 
     # 面试官列表：保存登录用户名，便于后续识别参与面试的账号。
-    interviewers = Column(
-        JSON,          # JSON 类型，例如 ["hr_zhang", "tech_li"]
-        default=list,  # 每条新记录使用独立的空列表
-    )
+    # JSON 类型，例如 ["hr_zhang", "tech_li"]
+    interviewers = Column(JSON, default=list)
 
     # 面试时长：以分钟为单位。
-    duration_minutes = Column(
-        Integer,     # 整数类型，例如 60 分钟
-        default=60,  # 未提供时默认使用 60 分钟
-    )
+    # 整数类型，例如 60 分钟
+    # 未提供时默认使用 60 分钟
+    duration_minutes = Column(Integer, default=60)
 
     # 可选时段：保存提供给候选人选择的时间段列表。
-    proposed_slots = Column(
-        JSON,           # JSON 类型，保存多个可选时间段
-        nullable=True,  # 尚未生成时段时可以为空
-    )
+    proposed_slots = Column(JSON, nullable=True)
 
     # 已确认的开始时间：候选人确认后，由业务代码填写。
-    confirmed_start = Column(
-        DateTime,       # 日期时间类型
-        nullable=True,  # 尚未确认时可以为空
-    )
+    confirmed_start = Column(DateTime, nullable=True)
 
     # 已确认的结束时间：候选人确认后，由业务代码填写。
-    confirmed_end = Column(
-        DateTime,       # 日期时间类型
-        nullable=True,  # 尚未确认时可以为空
-    )
+    confirmed_end = Column(DateTime, nullable=True)
 
     # 面试地点：用于保存线下面试地址。
-    location = Column(
-        String(500),    # 地址最大长度为 500 个字符
-        nullable=True,  # 线上面试时可以不填写
-    )
+    location = Column(String(500), nullable=True)
 
     # 会议链接：用于保存线上面试入口。
-    meeting_link = Column(
-        String(500),    # 链接最大长度为 500 个字符
-        nullable=True,  # 线下面试时可以不填写
-    )
+    meeting_link = Column(String(500), nullable=True)
 
     # 面试反馈：保存面试官评价、优势、不足和建议结论等信息。
-    feedback = Column(
-        JSON,           # JSON 类型，用于保存结构化反馈
-        nullable=True,  # 尚未提交反馈时可以为空
-    )
+    feedback = Column(JSON, nullable=True)
 
     # 面试摘要：保存后续分析模块生成的总结文字。
-    ai_summary = Column(
-        Text,           # 长文本类型
-        nullable=True,  # 尚未生成摘要时可以为空
-    )
+    ai_summary = Column(Text, nullable=True)
 
     # 提醒次数：记录已经发送过多少次面试提醒。
-    reminder_sent = Column(
-        Integer,    # 整数类型，表示次数
-        default=0,  # 新建记录时默认尚未发送提醒
-    )
+    # 新建记录时默认尚未发送提醒
+    reminder_sent = Column(Integer, default=0)
 
     # 创建时间：记录这场面试什么时候被录入系统。
-    created_at = Column(
-        DateTime,  # 统一按不带时区标记的 UTC 时间存储
-        default=lambda: datetime.now(UTC).replace(tzinfo=None),  # 插入时生成
-    )
+    # 统一按不带时区标记的 UTC 时间存储
+    created_at = Column(DateTime, default=lambda: datetime.now(UTC).replace(tzinfo=None))
 
     # 更新时间：记录这条面试数据最近一次修改的时间。
-    updated_at = Column(
-        DateTime,
-        default=lambda: datetime.now(UTC).replace(tzinfo=None),   # 新增时生成
-        onupdate=lambda: datetime.now(UTC).replace(tzinfo=None),  # 更新时刷新
-    )
+    updated_at = Column(DateTime, default=lambda: datetime.now(UTC).replace(tzinfo=None), onupdate=lambda: datetime.now(UTC).replace(tzinfo=None))

@@ -11,81 +11,38 @@ from app.database import Base
 class Resume(Base):
     """简历ORM模型，对应数据库中的 resumes 表。"""
 
-    # 指定数据库表名。
     __tablename__ = "resumes"
 
     # 简历 ID：唯一标识每一条简历记录。
-    id = Column(
-        Integer,             # 整数类型
-        primary_key=True,    # 设为主键，唯一标识一条记录
-        autoincrement=True,  # 新增记录时，由数据库自动生成递增 ID
-    )
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
     # 所属候选人：每份简历必须关联一位候选人。
-    candidate_id = Column(
-        Integer,                      # 整数类型，保存候选人 ID
-        ForeignKey("candidates.id"),  # 外键，关联 candidates 表的 id 列
-        nullable=False,              # 不允许为 NULL，必须指定所属候选人
-        index=True,                  # 建立索引，便于查询某位候选人的全部简历
-    )
+    candidate_id = Column(Integer, ForeignKey('candidates.id'), nullable=False, index=True)
 
     # 原始文件名：保存用户上传时的文件名称，可以不填写。
-    original_filename = Column(
-        String(500),    # 保存字符串，最大长度设为 500 个字符
-        nullable=True,  # 允许为空，例如直接录入简历文本时没有上传文件
-    )
+    original_filename = Column(String(500), nullable=True)
 
     # 文件存储路径：记录简历文件保存的位置，可以不填写。
-    file_path = Column(
-        String(1000),   # 保存路径字符串，最大长度设为 1000 个字符
-        nullable=True,  # 允许为空，例如直接录入简历文本时没有文件路径
-    )
+    file_path = Column(String(1000), nullable=True)
 
     # 文件类型：记录简历格式，例如 pdf、docx、txt。
-    file_type = Column(
-        String(10),     # 保存类型字符串，最大长度设为 10 个字符
-        nullable=True,  # 允许为空，例如直接录入简历文本时没有文件类型
-    )
+    file_type = Column(String(10), nullable=True)
 
     # 简历原始文本：保存文件解析或 OCR 识别后得到的文字。
-    raw_text = Column(
-        Text,           # 长文本类型，用于保存整份简历的文字内容
-        nullable=True,  # 允许为空，表示尚未提取到文本
-    )
+    raw_text = Column(Text, nullable=True)
 
     # 结构化分析结果：保存基本信息、技能、教育和工作经历等内容。
-    analysis_result = Column(
-        JSON,           # JSON 类型，可以保存字典、列表等结构化数据
-        nullable=True,  # 允许数据库列为 NULL，尚未分析时可以暂不填写
-        default=None,   # 默认不提供分析结果
-    )
+    # 默认不提供分析结果
+    analysis_result = Column(JSON, nullable=True, default=None)
 
     # 岗位匹配分析：保存综合评分、维度评分、优势和风险等信息。
-    match_analysis = Column(
-        JSON,           # JSON 类型，用于保存结构化的匹配分析结果
-        nullable=True,  # 允许为空，表示尚未获得匹配分析结果
-        default=None,   # 默认不提供匹配分析结果
-    )
+    match_analysis = Column(JSON, nullable=True, default=None)
 
     # 简短总结：保存 AI 生成的候选人概述，便于快速浏览。
-    summary = Column(
-        Text,           # 长文本类型，用于保存总结文字
-        nullable=True,  # 允许为空，表示尚未生成总结
-    )
+    summary = Column(Text, nullable=True)
 
     # 分析完成时间：由分析服务在处理完成后填写。
-    analyzed_at = Column(
-        DateTime,       # 日期时间类型，按统一的 UTC 时间约定写入
-        nullable=True,  # 允许为空，表示尚未记录分析完成时间
-    )
+    analyzed_at = Column(DateTime, nullable=True)
 
     # 创建时间：记录这份简历什么时候被录入系统。
-    created_at = Column(
-        DateTime,  # 日期时间类型，统一按不带时区标记的 UTC 时间存储
-        default=lambda: datetime.now(UTC).replace(tzinfo=None),  # 插入时生成时间
-    )
-
-
-
-
-
+    created_at = Column(DateTime, default=lambda: datetime.now(UTC).replace(tzinfo=None))

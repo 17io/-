@@ -25,80 +25,41 @@ class LLMCallLog(Base):
 
     __tablename__ = "llm_call_logs"
 
-    id = Column(
-        Integer,
-        primary_key=True,    # 主键，唯一标识这条日志。
-        autoincrement=True,  # 新增记录时自动生成编号。
-    )
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
     # 日志记录时间，统一保存不带时区标记的 UTC 时间。
-    timestamp = Column(
-        DateTime,
-        default=lambda: datetime.now(UTC).replace(tzinfo=None),
-        index=True,  # 建立索引，便于按时间筛选日志。
-    )
+    timestamp = Column(DateTime, default=lambda: datetime.now(UTC).replace(tzinfo=None), index=True)
 
     # 会话标识，用于归集同一会话中的多次模型调用。
-    session_id = Column(
-        String(100),
-        nullable=True,  # 部分调用没有会话，因此允许为空。
-        index=True,    # 便于按会话查询。
-    )
+    session_id = Column(String(100), nullable=True, index=True)
 
     # 调用来源，例如 resume_analyze 或 rag_chat。
-    function_name = Column(
-        String(50),
-        nullable=True,
-        index=True,  # 便于按功能筛选日志。
-    )
+    function_name = Column(String(50), nullable=True, index=True)
 
     # 本次调用使用的模型名称。
-    model = Column(
-        String(100),
-        nullable=True,
-    )
+    model = Column(String(100), nullable=True)
 
     # 系统提示词，写入日志前需要将内容控制在 500 字符内。
-    system_prompt = Column(
-        String(500),
-        nullable=True,
-    )
+    system_prompt = Column(String(500), nullable=True)
 
     # 请求消息列表，保存角色、内容等结构化信息。
-    messages = Column(
-        JSON,
-        nullable=True,
-    )
+    messages = Column(JSON, nullable=True)
 
     # 模型返回的文本。
-    response = Column(
-        Text,
-        nullable=True,
-    )
+    response = Column(Text, nullable=True)
 
     # 输入 Token 数量，包括提示词和请求消息等内容。
-    prompt_tokens = Column(
-        Integer,
-        default=0,  # 插入时未提供该字段，则默认保存 0。
-    )
+    prompt_tokens = Column(Integer, default=0)
 
     # 输出 Token 数量，即模型生成内容的用量。
-    completion_tokens = Column(
-        Integer,
-        default=0,
-    )
+    completion_tokens = Column(Integer, default=0)
 
     # 本次调用的总 Token 数量。
-    total_tokens = Column(
-        Integer,
-        default=0,
-    )
+    total_tokens = Column(Integer, default=0)
 
     # 本次模型调用的耗时，单位为毫秒。
-    latency_ms = Column(
-        Float,
-        default=0.0,  # 支持保存带小数的耗时。
-    )
+    # 支持保存带小数的耗时。
+    latency_ms = Column(Float, default=0.0)
 
     def to_dict(self) -> dict:
         """将日志的主要信息转换为字典，供接口返回。"""
