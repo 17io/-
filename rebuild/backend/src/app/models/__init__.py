@@ -18,3 +18,6 @@ from app.models.interview import Interview, InterviewStatus, InterviewRound
 
 # 人才池模型与人才池状态枚举。
 from app.models.talent_pool import TalentPool, TalentPoolStatus
+
+# 通知记录模型。
+from app.models.notification import Notification
