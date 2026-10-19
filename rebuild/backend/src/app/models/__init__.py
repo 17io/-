@@ -26,3 +26,5 @@ from app.models.exam_analysis import ExamAnalysis
 from app.models.task_progress import TaskProgress, TaskStatus
 # 评分权重调整历史。
 from app.models.scoring_iteration import ScoringIteration
+# 可配置岗位职责与任职要求。
+from app.models.position_jd import PositionJd
