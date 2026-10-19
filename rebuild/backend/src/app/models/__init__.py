@@ -12,3 +12,6 @@ from app.models.questionnaire_template import QuestionnaireTemplate
 
 # 面向候选人的问卷实例与答卷记录。
 from app.models.questionnaire import Questionnaire, QuestionnaireResponse
+
+# 面试模型、面试状态和轮次枚举。
+from app.models.interview import Interview, InterviewStatus, InterviewRound
