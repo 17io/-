@@ -22,3 +22,5 @@ from app.models.policy import PolicyDocument, PolicyChatHistory
 from app.models.llm_log import LLMCallLog
 # 外部考试结果与分析记录模型。
 from app.models.exam_analysis import ExamAnalysis
+# 异步任务进度模型和任务状态枚举。
+from app.models.task_progress import TaskProgress, TaskStatus
