@@ -18,3 +18,5 @@ from app.models.notification import Notification
 from app.models.notification_template import NotificationTemplate
 # 企业制度文档与问答历史模型。
 from app.models.policy import PolicyDocument, PolicyChatHistory
+# 大模型调用日志模型。
+from app.models.llm_log import LLMCallLog
