@@ -6,3 +6,9 @@ from app.models.candidate import Candidate, CandidateStatus
 
 # 导入简历模型，供其他模块通过 app.models 使用。
 from app.models.resume import Resume
+
+# 可重复使用的问卷模板。
+from app.models.questionnaire_template import QuestionnaireTemplate
+
+# 面向候选人的问卷实例与答卷记录。
+from app.models.questionnaire import Questionnaire, QuestionnaireResponse
