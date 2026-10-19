@@ -24,3 +24,5 @@ from app.models.llm_log import LLMCallLog
 from app.models.exam_analysis import ExamAnalysis
 # 异步任务进度模型和任务状态枚举。
 from app.models.task_progress import TaskProgress, TaskStatus
+# 评分权重调整历史。
+from app.models.scoring_iteration import ScoringIteration
