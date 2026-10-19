@@ -7,11 +7,7 @@
 """问卷实例与答卷模型；发送、作答校验和评分由后续业务模块实现。"""
 
 from datetime import UTC, datetime
-
-from sqlalchemy import (
-    Boolean, Column, DateTime, Float, ForeignKey, Integer, JSON, String, Text,
-)
-
+from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, JSON, String, Text
 from app.database import Base
 
 

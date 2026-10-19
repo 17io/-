@@ -15,3 +15,6 @@ from app.models.questionnaire import Questionnaire, QuestionnaireResponse
 
 # 面试模型、面试状态和轮次枚举。
 from app.models.interview import Interview, InterviewStatus, InterviewRound
+
+# 人才池模型与人才池状态枚举。
+from app.models.talent_pool import TalentPool, TalentPoolStatus

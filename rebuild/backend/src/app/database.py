@@ -1,15 +1,10 @@
 from collections.abc import AsyncGenerator  # 用于类型标注，表示函数会异步地通过 yield 提供数据
 
-# AsyncSession,  # 异步数据库会话，通过它执行查询、添加、修改、删除等操作
-#     async_sessionmaker,  # 会话工厂，负责创建AsyncSession
-#     create_async_engine,  # 创建异步数据库引擎，管理数据库连接
-from sqlalchemy.ext.asyncio import (
-    AsyncSession,
-    async_sessionmaker,
-    create_async_engine,
-)
+# AsyncSession：异步数据库会话，通过它执行查询、添加、修改、删除等操作。
+# async_sessionmaker：会话工厂，负责创建 AsyncSession。
+# create_async_engine：创建异步数据库引擎，管理数据库连接。
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase  # 用来定义所有数据模型共同继承的父类
-
 from app.config import settings
 
 
@@ -44,7 +39,11 @@ async_session_factory = async_sessionmaker(
 # ===== 定义数据模型的公共基类 =====
 
 class Base(DeclarativeBase):
-    """后续所有数据库模型都继承这个类。"""
+    """所有 ORM 模型的基类。
+
+    models/ 目录下的每个 class Xxx(Base) 都继承它，
+    SQLAlchemy 靠这个继承关系把"Python 类"登记成"数据库表"。
+    """
 
     pass
 
@@ -52,7 +51,17 @@ class Base(DeclarativeBase):
 # ===== 为接口提供数据库会话 =====
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    """提供一个会话，并处理提交、回滚与关闭。"""
+    """FastAPI 依赖注入：每个需要数据库的接口自动获得一个会话
+
+    在 router 文件里会看到函数参数写成：
+    db: AsyncSession = Depends(get_db)
+    意思是：调用这个接口时，FastAPI 自动执行 get_db() 并把会话传进来。
+    本函数用 yield 实现了"自动收尾"：
+      - 请求处理成功 → 自动 commit（把改动写进数据库）
+      - 处理中抛异常 → 自动 rollback（撤销本次所有改动，防止写脏数据）
+      - 无论成败     → 最后自动 close（把连接还给池子）
+    路由代码只管写业务逻辑，完全不用操心这些。
+    """
 
     async with async_session_factory() as session:
         try:

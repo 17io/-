@@ -4,19 +4,9 @@
 #   · JSON 列的好处：字段结构不固定也能直接存，取出来就是 Python dict。
 # ═══════════════════════════════════════════════════════════════
 """简历模型"""
-from datetime import datetime, UTC  # 获取 UTC 时间，用于记录创建时间
-
-from sqlalchemy import (
-    Column,      # 定义数据库表中的列
-    Integer,     # 整数类型，例如简历 ID、候选人 ID
-    String,      # 有长度限制的字符串，例如文件名
-    DateTime,    # 日期时间类型，例如分析完成时间
-    Text,        # 长文本类型，用于保存简历原文
-    JSON,        # JSON 类型，用于保存结构化分析结果
-    ForeignKey,  # 定义外键，将简历关联到候选人
-)
-
-from app.database import Base  # 数据模型共同继承的父类
+from datetime import datetime, UTC
+from sqlalchemy import Column, Integer, String, DateTime, Text, JSON, ForeignKey
+from app.database import Base
 
 class Resume(Base):
     """简历ORM模型，对应数据库中的 resumes 表。"""

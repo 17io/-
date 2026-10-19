@@ -6,20 +6,10 @@
 # ═══════════════════════════════════════════════════════════════
 """面试排期模型"""
 
-from datetime import datetime, UTC  # 获取 UTC 时间，用于创建和更新时间
-import enum  # 定义固定的面试状态和轮次
-
-from sqlalchemy import (
-    Column,  # 定义数据库中的列
-    Integer,  # 整数类型，例如 ID、面试时长
-    String,  # 字符串类型，例如状态、会议链接
-    DateTime,  # 日期时间类型，例如面试开始时间
-    Text,  # 长文本类型，例如面试摘要
-    JSON,  # JSON 类型，例如面试官列表、反馈内容
-    ForeignKey,  # 定义外键，将面试关联到候选人
-)
-
-from app.database import Base  # 数据模型共同继承的父类
+from datetime import datetime, UTC
+import enum
+from sqlalchemy import Column, Integer, String, DateTime, Text, JSON, ForeignKey
+from app.database import Base
 
 
 class InterviewStatus(str, enum.Enum):

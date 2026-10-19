@@ -7,9 +7,7 @@
 """可重复使用的问卷模板；发送实例另行保存题目快照。"""
 
 from datetime import UTC, datetime
-
 from sqlalchemy import Boolean, Column, DateTime, Integer, JSON, String, Text
-
 from app.database import Base
 
 

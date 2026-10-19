@@ -14,9 +14,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.schema import CreateIndex, CreateTable
 
 from app.database import Base
-from app.models import (
-    Candidate, Questionnaire, QuestionnaireResponse, QuestionnaireTemplate,
-)
+from app.models import Candidate, Questionnaire, QuestionnaireResponse, QuestionnaireTemplate
 
 
 class QuestionnaireModelsTest(unittest.TestCase):

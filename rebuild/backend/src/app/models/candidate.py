@@ -6,21 +6,13 @@
 #   · owner_user_id 用于数据权限：普通 HR 只能看分给自己的候选人（见 dependencies/scope.py）。
 # ═══════════════════════════════════════════════════════════════
 """候选人模型"""
-from datetime import datetime, UTC  # 获取 UTC 时间，用于创建和更新时间
-import enum  # 定义候选人的固定状态
+from datetime import datetime, UTC
+import enum
 
-from sqlalchemy import (
-    Column,      # 定义数据库表中的列
-    Integer,     # 整数类型，例如候选人 ID
-    String,      # 有长度限制的字符串，例如姓名
-    DateTime,    # 日期时间类型
-    Float,       # 浮点数类型，例如工作年限、匹配评分
-    Text,        # 长文本类型，例如备注
-    JSON,        # JSON 类型，例如保存标签列表
-    ForeignKey,  # 定义外键，关联其他表中的记录
-)
-
-from app.database import Base  # 所有数据模型共同继承的父类
+# Float：浮点数类型，例如工作年限、匹配评分；Text：长文本类型，例如备注。
+# JSON：JSON 类型，例如保存标签列表；ForeignKey：定义外键，关联其他表中的记录。
+from sqlalchemy import Column, Integer, String, DateTime, Float, Text, JSON, ForeignKey
+from app.database import Base
 
 class CandidateStatus(str, enum.Enum):
     """定义候选人在招聘流程中的状态。"""

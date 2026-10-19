@@ -7,10 +7,11 @@
 from datetime import datetime, UTC  # 日期时间工具，以及 UTC 时区
 import enum  # 定义固定选项，例如管理员、HR 等角色
 
-# Column 定义数据库中获得一列
+# Column：定义数据库中的列；Integer：整数类型，例如用户 ID。
+# String：有长度限制的字符串，例如用户名；DateTime：日期时间类型。
+# Boolean：布尔类型，保存 True 或 False，例如账号是否启用。
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
-
-from app.database import Base
+from app.database import Base  # 所有数据模型共同继承的父类
 
 
 class UserRole(str, enum.Enum):
