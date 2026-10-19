@@ -7,7 +7,6 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from sqlalchemy.orm import DeclarativeBase  # 用来定义所有数据模型共同继承的父类
 from app.config import settings
 
-
 # ===== 创建数据库引擎 =====
 
 # 读取 config.py 中的数据库连接地址。
@@ -18,13 +17,12 @@ DB_URL = settings.DATABASE_URL
 engine = create_async_engine(
     DB_URL,
     echo=settings.DEBUG,  # DEBUG 开启时，输出执行的 SQL。
-    pool_size=20,         # 连接池最多保留 20 条常驻连接，按需创建。
-    max_overflow=40,      # 高峰期最多再临时增加 40 条连接。
-    pool_pre_ping=True,   # 取出连接时先检查，避免使用已经断开的连接。
-    pool_recycle=1800,    # 连接超过 1800 秒后，下次取用时更新。
-    pool_timeout=30,      # 无可用连接时，最多等待 30 秒。
+    pool_size=20,  # 连接池最多保留 20 条常驻连接，按需创建。
+    max_overflow=40,  # 高峰期最多再临时增加 40 条连接。
+    pool_pre_ping=True,  # 取出连接时先检查，避免使用已经断开的连接。
+    pool_recycle=1800,  # 连接超过 1800 秒后，下次取用时更新。
+    pool_timeout=30,  # 无可用连接时，最多等待 30 秒。
 )
-
 
 # ===== 创建会话工厂 =====
 
@@ -79,3 +77,17 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
             raise
 
         # 离开 async with 时，会自动关闭会话并归还连接。
+
+
+# ===== 初始化数据库表 =====
+
+async def init_db() -> None:
+    """根据已登记的模型，在数据库中创建缺失的表。"""
+
+    # 执行 models/__init__.py，导入全部模型并登记表结构。
+    import app.models
+
+    # 从引擎取得连接，进入数据库操作上下文。
+    async with engine.begin() as conn:
+        # 通过异步连接调用 SQLAlchemy 的同步建表入口。
+        await conn.run_sync(Base.metadata.create_all)
