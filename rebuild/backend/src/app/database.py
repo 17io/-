@@ -1,11 +1,14 @@
-from collections.abc import AsyncGenerator
+from collections.abc import AsyncGenerator  # 用于类型标注，表示函数会异步地通过 yield 提供数据
 
+# AsyncSession,  # 异步数据库会话，通过它执行查询、添加、修改、删除等操作
+#     async_sessionmaker,  # 会话工厂，负责创建AsyncSession
+#     create_async_engine,  # 创建异步数据库引擎，管理数据库连接
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
 )
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase  # 用来定义所有数据模型共同继承的父类
 
 from app.config import settings
 
