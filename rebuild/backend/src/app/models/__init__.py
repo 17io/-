@@ -21,3 +21,6 @@ from app.models.talent_pool import TalentPool, TalentPoolStatus
 
 # 通知记录模型。
 from app.models.notification import Notification
+
+# 可配置通知模板模型。
+from app.models.notification_template import NotificationTemplate
