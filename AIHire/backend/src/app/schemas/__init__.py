@@ -1,15 +1,32 @@
 """接口请求与响应的数据结构。"""
 
-# 将认证类导入当前包，允许其他模块通过 app.schemas 直接使用。
+# 认证相关数据结构。
 from app.schemas.auth import (
     LoginRequest, TokenResponse, UserCreate,
     SetupAdminRequest, UpdateProfileRequest,
     ChangePasswordRequest, UserResponse,
 )
 
-# 声明当前包对外提供的名称。
+# 候选人与人才池相关数据结构。
+from app.schemas.candidate import (
+    CandidateCreate, CandidateOwnerUpdate, CandidateUpdate,
+    CandidateResponse, CandidateListResponse,
+    TalentPoolResponse, TalentPoolListResponse,
+    ReactivateRequest, TalentPoolCreateRequest,
+)
+
+
 __all__ = [
+    # 认证。
     "LoginRequest", "TokenResponse", "UserCreate",
     "SetupAdminRequest", "UpdateProfileRequest",
     "ChangePasswordRequest", "UserResponse",
+
+    # 候选人。
+    "CandidateCreate", "CandidateOwnerUpdate", "CandidateUpdate",
+    "CandidateResponse", "CandidateListResponse",
+
+    # 人才池。
+    "TalentPoolResponse", "TalentPoolListResponse",
+    "ReactivateRequest", "TalentPoolCreateRequest",
 ]
