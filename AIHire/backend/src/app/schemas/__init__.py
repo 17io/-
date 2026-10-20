@@ -29,6 +29,12 @@ from app.schemas.interview import (
 )
 
 
+# 通知与流程状态相关数据结构。
+from app.schemas.notification import (
+    NotificationRequest, NotificationResponse, WorkflowStatusResponse,
+)
+
+
 __all__ = [
     # 认证。
     "LoginRequest", "TokenResponse", "UserCreate",
@@ -51,4 +57,7 @@ __all__ = [
     "TimeSlot", "InterviewSlotRequest", "InterviewSlotResponse",
     "SlotConfirm", "ManualScheduleRequest",
     "InterviewResponse", "InterviewFeedback",
+
+    # 通知与流程状态。
+    "NotificationRequest", "NotificationResponse", "WorkflowStatusResponse",
 ]
