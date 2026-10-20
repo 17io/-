@@ -21,6 +21,13 @@ from app.schemas.resume import (
     ResumeAnalysisResponse, ResumeAnalysisRequest,
 )
 
+# 面试相关数据结构。
+from app.schemas.interview import (
+    TimeSlot, InterviewSlotRequest, InterviewSlotResponse,
+    SlotConfirm, ManualScheduleRequest,
+    InterviewResponse, InterviewFeedback,
+)
+
 
 __all__ = [
     # 认证。
@@ -39,4 +46,9 @@ __all__ = [
     # 简历。
     "ResumeUploadResponse", "ResumeAnalysisResult", "MatchAnalysis",
     "ResumeAnalysisResponse", "ResumeAnalysisRequest",
+
+    # 面试。
+    "TimeSlot", "InterviewSlotRequest", "InterviewSlotResponse",
+    "SlotConfirm", "ManualScheduleRequest",
+    "InterviewResponse", "InterviewFeedback",
 ]
