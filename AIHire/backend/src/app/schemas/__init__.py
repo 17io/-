@@ -15,6 +15,12 @@ from app.schemas.candidate import (
     ReactivateRequest, TalentPoolCreateRequest,
 )
 
+# 简历相关数据结构。
+from app.schemas.resume import (
+    ResumeUploadResponse, ResumeAnalysisResult, MatchAnalysis,
+    ResumeAnalysisResponse, ResumeAnalysisRequest,
+)
+
 
 __all__ = [
     # 认证。
@@ -29,4 +35,8 @@ __all__ = [
     # 人才池。
     "TalentPoolResponse", "TalentPoolListResponse",
     "ReactivateRequest", "TalentPoolCreateRequest",
+
+    # 简历。
+    "ResumeUploadResponse", "ResumeAnalysisResult", "MatchAnalysis",
+    "ResumeAnalysisResponse", "ResumeAnalysisRequest",
 ]
