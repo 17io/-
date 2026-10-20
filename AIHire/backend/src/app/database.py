@@ -81,6 +81,8 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 
 # ===== 初始化数据库表 =====
 
+# ===== 初始化数据库表 =====
+
 async def init_db() -> None:
     """根据已登记的模型，在数据库中创建缺失的表。"""
 
