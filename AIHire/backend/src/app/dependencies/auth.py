@@ -18,7 +18,7 @@
     async def create_document(_, current_user: User = Depends(require_role([UserRole.ADMIN, UserRole.HR]))):
         ...
 """
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 import logging
 from typing import List, Optional
 # Depends 声明接口依赖；HTTPException 返回 HTTP 错误；status 提供状态码常量。
@@ -27,6 +27,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 # jwt 负责令牌签名与校验，JWTError 表示令牌校验异常。
 from jose import JWTError, jwt
+
 import bcrypt  # 第三方密码哈希工具，后续保存哈希结果而非明文密码
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -86,8 +87,8 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     """
     # 复制一份数据，添加过期时间时不修改调用方传入的原字典。
     to_encode = data.copy()
-    # 优先使用传入的有效期；没有有效值时，使用 Settings 中配置的小时数。
-    expire = datetime.utcnow() + (expires_delta or timedelta(hours=settings.JWT_EXPIRE_HOURS))
+    # 使用带 UTC 时区的当前时间；优先采用传入的有效期，否则使用配置的小时数。
+    expire = datetime.now(UTC) + (expires_delta or timedelta(hours=settings.JWT_EXPIRE_HOURS))
     # exp 是 JWT 的过期时间字段；sub 通常保存登录用户名。
     to_encode.update({"exp": expire})
     # 使用配置的密钥和算法签名；签名用于校验完整性，不会加密隐藏载荷。
