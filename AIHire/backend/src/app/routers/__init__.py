@@ -2,4 +2,6 @@
 
 from app.routers import auth  # 导出认证路由模块，供应用注册接口。
 
-__all__ = ["auth"]
+from app.routers import candidates  # 导出候选人管理路由模块。
+
+__all__ = ["auth", "candidates"]
