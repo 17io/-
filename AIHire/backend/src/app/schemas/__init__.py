@@ -39,6 +39,13 @@ from app.schemas.notification import (
 from app.schemas.questionnaire import QuestionItem, QuestionnaireResponse
 
 
+# 试卷分析相关数据结构。
+from app.schemas.exam_analysis import (
+    ExamAnalysisResponse, ExamAnalysisListResponse,
+    ExamImportRequest, ExamImportResponse,
+)
+
+
 __all__ = [
     # 认证。
     "LoginRequest", "TokenResponse", "UserCreate",
@@ -67,4 +74,8 @@ __all__ = [
 
     # 问卷。
     "QuestionItem", "QuestionnaireResponse",
+
+    # 试卷分析。
+    "ExamAnalysisResponse", "ExamAnalysisListResponse",
+    "ExamImportRequest", "ExamImportResponse",
 ]
