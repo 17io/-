@@ -35,6 +35,10 @@ from app.schemas.notification import (
 )
 
 
+# 问卷相关数据结构。
+from app.schemas.questionnaire import QuestionItem, QuestionnaireResponse
+
+
 __all__ = [
     # 认证。
     "LoginRequest", "TokenResponse", "UserCreate",
@@ -60,4 +64,7 @@ __all__ = [
 
     # 通知与流程状态。
     "NotificationRequest", "NotificationResponse", "WorkflowStatusResponse",
+
+    # 问卷。
+    "QuestionItem", "QuestionnaireResponse",
 ]
