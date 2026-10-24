@@ -9,3 +9,6 @@ bcrypt>=5.0.0
 
 # 候选人 Excel 导出。
 openpyxl>=3.1.0
+
+# 招聘流程状态与消息合并。
+langgraph>=1.2.0
