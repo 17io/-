@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 DIMENSION_FIELDS = {
     "skill": "skill_match_score",        # 来自技能 Agent
     "experience": "experience_score",    # 来自经验 Agent
-    "stability": "stability_score",      # 来自经验 Agent
+    "stability": "stability_score",      # 稳定性分，取自经验分析结果
 }
 
 # 最后一道防线：config 里的默认权重本身非法时，用这份硬编码值兜底

@@ -56,7 +56,7 @@ async def create_candidate(
         and data.owner_user_id is not None
     ):
         target = (await db.execute(
-            select(User).where(User.id == data.owner_user_id)
+            select( User).where(User.id == data.owner_user_id)
         )).scalar_one_or_none()
         if (
             not target or not target.is_active
