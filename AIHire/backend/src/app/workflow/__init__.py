@@ -4,4 +4,6 @@ from app.workflow.state import RecruitmentState  # 导出招聘流程状态结�
 
 from app.workflow.utils import get_candidate, candidate_session  # 导出候选人查询与会话管理工具。
 
-__all__ = ["RecruitmentState", "get_candidate", "candidate_session"]
+from app.workflow.agent_client import AgentClient, agent_client  # 导出客户端类型与模块级共享实例。
+
+__all__ = ["RecruitmentState", "get_candidate", "candidate_session", "AgentClient", "agent_client"]

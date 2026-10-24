@@ -12,3 +12,6 @@ openpyxl>=3.1.0
 
 # 招聘流程状态与消息合并。
 langgraph>=1.2.0
+
+# 独立 Agent 服务的 HTTP 调用。
+httpx>=0.28.0
